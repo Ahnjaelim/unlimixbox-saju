@@ -83,7 +83,8 @@
 
   #result{display:none;}
   button#resetBtn{
-    display:block; width:100%; margin-top:26px; padding:13px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    width:100%; margin-top:12px; padding:13px; border-radius:12px;
     background:none; border:1px solid var(--line); color:var(--ink-dim);
     font-size:14px; font-weight:500; cursor:pointer; font-family:'Noto Sans KR',sans-serif;
     transition:border-color .15s ease, color .15s ease;
@@ -91,6 +92,21 @@
   button#resetBtn:hover{border-color:var(--gold); color:var(--gold);}
   .result-title{font-family:'Noto Serif KR',serif; font-size:20px; color:var(--gold); margin:0 0 4px;}
   .result-sub{color:var(--ink-dim); font-size:13px; margin:0 0 20px;}
+  button#shareBtn, button#pageLinkBtn{
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    width:100%; margin-top:26px; padding:12px; border-radius:12px; cursor:pointer;
+    background:rgba(212,175,106,0.1); border:1px solid var(--gold-soft); color:var(--gold);
+    font-size:14px; font-weight:600; font-family:'Noto Sans KR',sans-serif;
+    transition:background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  button#pageLinkBtn{ margin-top:10px; }
+  button#shareBtn:hover, button#pageLinkBtn:hover{background:rgba(212,175,106,0.18);}
+  button#shareBtn.copied, button#pageLinkBtn.copied{background:rgba(92,184,92,0.12); border-color:rgba(92,184,92,0.5); color:#5cb85c;}
+  button#shareBtn [data-lucide], button#pageLinkBtn [data-lucide], button#resetBtn [data-lucide],
+  button#shareBtn svg.lucide, button#pageLinkBtn svg.lucide, button#resetBtn svg.lucide{
+    width:16px; height:16px; flex-shrink:0;
+  }
+  .theme-title svg.lucide, .theme-title [data-lucide]{ width:16px; height:16px; flex-shrink:0; color:var(--gold); }
 
   .pillars{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:22px;}
   .pillar{
@@ -123,6 +139,30 @@
     border:1px solid var(--gold-soft); border-radius:20px; padding:6px 14px;
   }
   .radar-wrap{display:flex; justify-content:center; padding:6px 0 2px;}
+  .seun-chart-wrap{padding:4px 0 0;}
+
+  .oheng-state-list{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
+  .oheng-state-item{
+    background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:12px 16px;
+  }
+  .oheng-state-head{display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:14px;}
+  .oheng-state-badge{
+    display:inline-block; font-size:11px; font-weight:600; padding:2px 9px; border-radius:20px;
+    border:1px solid var(--gold-soft);
+  }
+  .oheng-state-badge.balanced{color:#5cb85c; border-color:rgba(92,184,92,0.4); background:rgba(92,184,92,0.1);}
+  .oheng-state-badge.excess{color:#e0645c; border-color:rgba(224,100,92,0.4); background:rgba(224,100,92,0.1);}
+  .oheng-state-badge.deficient{color:#8a94a6; border-color:rgba(138,148,166,0.4); background:rgba(138,148,166,0.1);}
+  .oheng-state-desc{font-size:13px; line-height:1.7; color:var(--ink-dim);}
+  .oheng-more{margin-top:10px;}
+  .oheng-more summary{
+    cursor:pointer; list-style:none; font-size:13px; color:var(--gold); font-weight:600;
+    padding:8px 4px; user-select:none;
+  }
+  .oheng-more summary::-webkit-details-marker{display:none;}
+  .oheng-more summary::before{content:'▸ '; display:inline-block;}
+  .oheng-more[open] summary::before{content:'▾ ';}
+  .oheng-more > .oheng-state-item + .oheng-state-item{margin-top:10px;}
 
   .desc-box{
     background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
@@ -134,17 +174,17 @@
     border-radius:20px; padding:3px 10px; margin-top:4px;
   }
 
-  .chapter{margin-top:34px;}
-  .chapter:first-of-type{margin-top:22px;}
+  .chapter{margin-top:0;}
+  .result-header .result-sub{margin:0;}
   .chapter-head{
-    display:flex; align-items:center; gap:12px; margin-bottom:16px; padding-bottom:10px;
-    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:8px; margin-bottom:16px; padding-bottom:10px;
   }
   .chapter-num{
-    display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; /*width:30px; height:30px; border-radius:50%;
     background:linear-gradient(135deg,#e8c583,#c99a4d); color:#20160a; font-weight:700;
-    font-family:'Noto Serif KR',serif; flex-shrink:0; font-size:14px;
+    font-family:'Noto Serif KR',serif; flex-shrink:0; font-size:14px;*/
   }
+  .chapter-num img {width:22px; height:22px;}
   .chapter-title{font-family:'Noto Serif KR',serif; font-size:17px; color:var(--gold); font-weight:700; letter-spacing:.02em;}
   .sub-block{margin-bottom:18px;}
   .sub-block:last-child{margin-bottom:0;}
@@ -162,9 +202,14 @@
   }
   .symbol-emoji{font-size:34px; flex-shrink:0; line-height:1;}
 
-  .theme-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .theme-grid{display:grid; grid-template-columns:1fr; gap:12px;}
   .theme-card{background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:14px 16px;}
-  .theme-card .theme-title{font-size:14px; font-weight:700; color:var(--gold); margin-bottom:8px; display:flex; align-items:center; gap:6px;}
+  .theme-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .theme-card .theme-title{font-size:14px; font-weight:700; color:var(--gold); display:flex; align-items:center; gap:6px; flex-shrink:0;}
+  .theme-rating{display:flex; align-items:center; flex-wrap:wrap; gap:4px 12px; font-size:12px; flex-shrink:0;}
+  .theme-rating .rating-row{display:flex; align-items:center; gap:6px;}
+  .theme-rating .rating-label{color:var(--ink-dim); flex-shrink:0;}
+  .theme-rating b{color:var(--gold); letter-spacing:1px; font-weight:400;}
   .theme-card .theme-desc{font-size:13px; line-height:1.7; color:var(--ink);}
 
   .lucky-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px;}
@@ -189,7 +234,7 @@
   }
 
   @media (max-width:420px){
-    .theme-grid, .dodont-grid{ grid-template-columns:1fr; }
+    .dodont-grid{ grid-template-columns:1fr; }
     .lucky-grid{ grid-template-columns:1fr 1fr 1fr; gap:6px; }
   }
 
@@ -302,12 +347,14 @@
     </div>
   </div>
 
-  <div class="card" id="result">
-    <p class="result-title" id="resultTitle">사주 명식</p>
-    <p class="result-sub" id="resultSub"></p>
+  <div id="result">
+    <div class="card result-header">
+      <p class="result-title" id="resultTitle">사주 명식</p>
+      <p class="result-sub" id="resultSub"></p>
+    </div>
 
-    <div class="chapter">
-      <div class="chapter-head"><span class="chapter-num">1</span><div class="chapter-title">한눈에 보는 나의 핵심 사주</div></div>
+    <div class="card chapter">
+      <div class="chapter-head"><span class="chapter-num"><img src="bullet.png" /></span><div class="chapter-title">한눈에 보는 나의 핵심 사주</div></div>
 
       <div class="oneliner-quote" id="oneLinerBox"></div>
 
@@ -317,6 +364,7 @@
       <div class="sub-block">
         <div class="sub-label">오행 분포</div>
         <div class="radar-wrap" id="bars"></div>
+        <div class="oheng-state-list" id="ohengStateList"></div>
       </div>
 
       <div class="sub-block">
@@ -325,8 +373,8 @@
       </div>
     </div>
 
-    <div class="chapter">
-      <div class="chapter-head"><span class="chapter-num">2</span><div class="chapter-title">타고난 기운과 본질적 성격</div></div>
+    <div class="card chapter">
+      <div class="chapter-head"><span class="chapter-num"><img src="bullet.png" /></span><div class="chapter-title">타고난 기운과 본질적 성격</div></div>
 
       <div class="sub-block">
         <div class="sub-label">내면적 성격 (진짜 나)</div>
@@ -347,8 +395,13 @@
       </div>
     </div>
 
-    <div class="chapter">
-      <div class="chapter-head"><span class="chapter-num">3</span><div class="chapter-title">내가 타고난 인생의 타이밍</div></div>
+    <div class="card chapter">
+      <div class="chapter-head"><span class="chapter-num"><img src="bullet.png" /></span><div class="chapter-title">내가 타고난 인생의 타이밍</div></div>
+
+      <div class="sub-block">
+        <div class="sub-label">연도별 세운 흐름</div>
+        <div class="seun-chart-wrap" id="seunChart"></div>
+      </div>
 
       <div class="sub-block">
         <div class="sub-label">인생의 큰 흐름 (대운)</div>
@@ -364,31 +417,55 @@
       </div>
     </div>
 
-    <div class="chapter">
-      <div class="chapter-head"><span class="chapter-num">4</span><div class="chapter-title">분야별 집중 운세</div></div>
+    <div class="card chapter">
+      <div class="chapter-head"><span class="chapter-num"><img src="bullet.png" /></span><div class="chapter-title">분야별 집중 운세</div></div>
 
       <div class="theme-grid">
         <div class="theme-card">
-          <div class="theme-title">💰 재물운</div>
+          <div class="theme-head">
+            <div class="theme-title"><i data-lucide="wallet"></i> 재물운</div>
+            <div class="theme-rating">
+              <span class="rating-row"><span class="rating-label">올해</span><b id="wealthYearStars"></b></span>
+              <span class="rating-row"><span class="rating-label">대운</span><b id="wealthDaYunStars"></b></span>
+            </div>
+          </div>
           <div class="theme-desc" id="wealthDesc"></div>
         </div>
         <div class="theme-card">
-          <div class="theme-title">💼 직업·사업운</div>
+          <div class="theme-head">
+            <div class="theme-title"><i data-lucide="briefcase"></i> 직업·사업운</div>
+            <div class="theme-rating">
+              <span class="rating-row"><span class="rating-label">올해</span><b id="careerYearStars"></b></span>
+              <span class="rating-row"><span class="rating-label">대운</span><b id="careerDaYunStars"></b></span>
+            </div>
+          </div>
           <div class="theme-desc" id="careerDesc"></div>
         </div>
         <div class="theme-card">
-          <div class="theme-title">❤️ 연애·결혼운</div>
+          <div class="theme-head">
+            <div class="theme-title"><i data-lucide="heart"></i> 연애·결혼운</div>
+            <div class="theme-rating">
+              <span class="rating-row"><span class="rating-label">올해</span><b id="loveYearStars"></b></span>
+              <span class="rating-row"><span class="rating-label">대운</span><b id="loveDaYunStars"></b></span>
+            </div>
+          </div>
           <div class="theme-desc" id="loveDesc"></div>
         </div>
         <div class="theme-card">
-          <div class="theme-title">🩺 건강운</div>
+          <div class="theme-head">
+            <div class="theme-title"><i data-lucide="stethoscope"></i> 건강운</div>
+            <div class="theme-rating">
+              <span class="rating-row"><span class="rating-label">올해</span><b id="healthYearStars"></b></span>
+              <span class="rating-row"><span class="rating-label">대운</span><b id="healthDaYunStars"></b></span>
+            </div>
+          </div>
           <div class="theme-desc" id="healthDesc"></div>
         </div>
       </div>
     </div>
 
-    <div class="chapter">
-      <div class="chapter-head"><span class="chapter-num">5</span><div class="chapter-title">나를 살리는 삶의 조언</div></div>
+    <div class="card chapter">
+      <div class="chapter-head"><span class="chapter-num"><img src="bullet.png" /></span><div class="chapter-title">나를 살리는 삶의 조언</div></div>
 
       <div class="sub-block">
         <div class="sub-label">행운을 부르는 개운법(開運法)</div>
@@ -404,11 +481,11 @@
         <div class="sub-label">인생의 세 가지 계율</div>
         <div class="dodont-grid">
           <div class="dodont-col do">
-            <div class="dodont-title">DO</div>
+            <div class="dodont-title">✅ DO</div>
             <ul id="doList"></ul>
           </div>
           <div class="dodont-col dont">
-            <div class="dodont-title">DON'T</div>
+            <div class="dodont-title">❌ DON'T</div>
             <ul id="dontList"></ul>
           </div>
         </div>
@@ -417,7 +494,9 @@
       <div class="closing-quote" id="closingMsg"></div>
     </div>
 
-    <button id="resetBtn" type="button">처음으로</button>
+    <button id="shareBtn" type="button"><i data-lucide="user"></i><span class="btn-label">내 결과 공유하기</span></button>
+    <button id="pageLinkBtn" type="button"><i data-lucide="link"></i><span class="btn-label">링크 공유하기</span></button>
+    <button id="resetBtn" type="button"><i data-lucide="rotate-ccw"></i><span class="btn-label">처음으로</span></button>
   </div>
 
   <div class="disclaimer">
@@ -425,6 +504,8 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="lunar.js"></script>
 <script>
 const GAN = ['갑','을','병','정','무','기','경','신','임','계'];
@@ -569,6 +650,14 @@ function unknownPillarHTML(label){
 }
 
 const LOADING_STEPS = ['생년월일시를 분석하는 중...', '천간·지지를 배치하는 중...', '오행 기운을 살펴보는 중...', '풀이를 정리하는 중...'];
+const STORAGE_KEY = 'sajuLastInput';
+let CURRENT_INPUT = null; // 공유 링크 생성 시 사용되는 마지막 계산 입력값
+
+function isValidYMD(y, m, d){
+  if(!y || !m || !d || y<1900 || y>2100) return false;
+  const dt = new Date(y, m-1, d);
+  return dt.getFullYear()===y && dt.getMonth()===m-1 && dt.getDate()===d;
+}
 
 document.getElementById('calcBtn').addEventListener('click', function(){
   const yearVal = document.getElementById('yearInput').value;
@@ -578,8 +667,7 @@ document.getElementById('calcBtn').addEventListener('click', function(){
   const y = parseInt(yearVal, 10);
   const m = parseInt(monthVal, 10);
   const d = parseInt(dayVal, 10);
-  const validDate = yearVal && monthVal && dayVal && y>=1900 && y<=2100 &&
-    (function(){ const dt = new Date(y, m-1, d); return dt.getFullYear()===y && dt.getMonth()===m-1 && dt.getDate()===d; })();
+  const validDate = isValidYMD(y, m, d);
   if(!validDate){
     errEl.textContent = '생년월일을 정확히 입력해주세요.';
     errEl.style.display='block';
@@ -587,6 +675,15 @@ document.getElementById('calcBtn').addEventListener('click', function(){
   }
   errEl.style.display='none';
   const dateVal = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      year:y, month:m, day:d,
+      hour: parseInt(document.getElementById('hourInput').value,10),
+      name: document.getElementById('nameInput').value.trim(),
+      gender: document.querySelector('input[name="gender"]:checked').value
+    }));
+  }catch(e){ /* localStorage 사용 불가 시 무시 */ }
 
   const inputCard = document.getElementById('inputCard');
   const loadingCard = document.getElementById('loadingCard');
@@ -612,6 +709,42 @@ document.getElementById('calcBtn').addEventListener('click', function(){
 });
 
 const EL_HANJA = {'목':'木','화':'火','토':'土','금':'金','수':'水'};
+
+// 오행별 상태(적절/과다/부족) 설명
+const OHAENG_STATE_DESC = {
+  '목':{
+    적절:'성장과 확장의 기운이 균형 있게 자리잡고 있어요. 새로운 일을 시작하는 추진력과 계획을 밀고 나가는 끈기를 함께 갖추고 있어서, 목표를 세우면 차근차근 현실로 만들어가는 힘이 있어요.',
+    과다:'목의 기운이 넘쳐서 욕심과 고집으로 흐르기 쉬워요. 이것저것 벌이는 일은 많은데 마무리가 약해질 수 있고, 자기 뜻을 굽히지 않으려는 태도가 주변과의 마찰로 이어질 수 있어요. 한 번에 하나씩, 끝까지 완결짓는 연습이 도움이 돼요.',
+    부족:'목의 기운이 약해서 추진력과 결단력이 부족하게 느껴질 수 있어요. 새로운 도전 앞에서 망설이거나, 계획은 세워도 실행으로 옮기기까지 시간이 걸리는 편이에요. 작은 목표부터 실천하며 자신감을 쌓아가는 게 좋아요.'
+  },
+  '화':{
+    적절:'열정과 표현력이 적당히 균형을 이루고 있어요. 사람들 앞에서 자신을 드러내는 데 자연스럽고, 밝고 에너지 있는 분위기로 주변에 활력을 불어넣는 편이에요. 감정 표현도 솔직하면서 과하지 않아요.',
+    과다:'화의 기운이 넘쳐서 감정 기복이 크고 성급해지기 쉬워요. 순간의 열정으로 일을 밀어붙이다가 쉽게 지치거나, 화를 참지 못하고 관계에서 갈등을 만들 수 있어요. 감정을 한 박자 쉬어가며 표현하는 습관이 필요해요.',
+    부족:'화의 기운이 약해서 표현력과 열정이 다소 부족하게 느껴질 수 있어요. 속으로는 관심이 있어도 겉으로 잘 드러내지 못하고, 무기력하거나 소극적으로 비칠 수 있어요. 좋아하는 일을 통해 감정을 자주 표현하는 연습이 도움이 돼요.'
+  },
+  '토':{
+    적절:'안정감과 신뢰감을 주는 균형 잡힌 기운을 갖고 있어요. 맡은 일을 묵묵히 책임지고, 주변 사람들을 포용하는 중재자 역할을 잘 해내는 편이에요. 급하게 서두르지 않으면서도 꾸준히 결과를 만들어내요.',
+    과다:'토의 기운이 넘쳐서 고집스럽고 융통성이 부족해지기 쉬워요. 변화를 받아들이기보다 익숙한 방식을 고수하려는 경향이 강해지고, 우유부단하게 결정을 미루는 모습으로 비칠 수도 있어요. 새로운 시도를 조금씩 늘려가는 게 좋아요.',
+    부족:'토의 기운이 약해서 안정감과 지구력이 부족하게 느껴질 수 있어요. 마음이 쉽게 흔들리고, 한 가지 일을 꾸준히 이어가기보다 이랬다저랬다 하는 편이에요. 규칙적인 생활 습관을 만드는 것이 중심을 잡는 데 큰 도움이 돼요.'
+  },
+  '금':{
+    적절:'결단력과 원칙이 균형 있게 자리잡고 있어요. 맺고 끊음이 분명하고, 기준과 원칙을 지키면서도 상황에 맞게 판단하는 합리적인 태도를 갖추고 있어요. 일 처리가 깔끔하고 신뢰를 얻는 편이에요.',
+    과다:'금의 기운이 넘쳐서 냉정하고 날카로운 인상을 줄 수 있어요. 원칙을 지나치게 앞세우다 보면 융통성이 떨어지고, 주변 사람에게 차갑거나 비판적으로 느껴질 수 있어요. 결과보다 과정에서 배려를 더하는 연습이 필요해요.',
+    부족:'금의 기운이 약해서 결단력과 추진력이 다소 부족하게 느껴질 수 있어요. 맺고 끊는 것이 명확하지 않아 우유부단해 보이거나, 스스로 기준을 세우는 데 어려움을 겪을 수 있어요. 작은 결정부터 명확하게 내리는 연습이 도움이 돼요.'
+  },
+  '수':{
+    적절:'지혜와 유연함이 균형 있게 자리잡고 있어요. 상황을 넓게 보고 깊이 생각하는 힘이 있고, 변화에 유연하게 대처하면서도 자기 중심을 잃지 않는 편이에요. 조용하지만 꾸준한 통찰력으로 신뢰를 얻어요.',
+    과다:'수의 기운이 넘쳐서 생각이 많아지고 우유부단해지기 쉬워요. 지나치게 신중해서 결정을 미루거나, 걱정과 불안이 커져서 행동으로 옮기지 못하는 경우가 생길 수 있어요. 생각을 정리한 뒤엔 과감하게 실행에 옮기는 연습이 필요해요.',
+    부족:'수의 기운이 약해서 유연함과 깊이 있는 사고가 다소 부족하게 느껴질 수 있어요. 상황 판단이 급하거나, 감정과 생각을 차분히 정리할 여유가 부족한 편이에요. 휴식과 성찰의 시간을 의식적으로 만들어보는 게 좋아요.'
+  }
+};
+
+function getElState(count, total){
+  if(count===0) return '부족';
+  const ratio = total>0 ? count/total : 0;
+  if(ratio>=0.4) return '과다';
+  return '적절';
+}
 
 // 양간(적극적) / 음간(섬세함)
 const YANG_GAN = new Set([0,2,4,6,8]);
@@ -772,6 +905,19 @@ const YONGSIN_TIP = {
   '수':'충분한 휴식과 유연한 사고를 기르는 수(水) 기운의 활동이 도움이 될 수 있어요.'
 };
 
+// 세운·대운의 십성 기운이 각 테마와 얼마나 맞아떨어지는지(1~5점) 나타내는 간단화된 가중치
+const THEME_FAVOR = {
+  wealth: {'비겁':2, '식상':4, '재성':5, '관성':3, '인성':2},
+  career: {'비겁':3, '식상':3, '재성':3, '관성':5, '인성':4},
+  love:   {'비겁':2, '식상':4, '재성':4, '관성':4, '인성':3},
+  health: {'비겁':4, '식상':3, '재성':2, '관성':2, '인성':5}
+};
+function starRating(score){
+  if(!score) return '—';
+  const s = Math.max(1, Math.min(5, score));
+  return '★'.repeat(s) + '☆'.repeat(5-s);
+}
+
 function getStrengthInfo(counts, dayEl){
   const total = Object.values(counts).reduce((a,b)=>a+b,0);
   const support = counts[dayEl] + (counts[GEN_BY[dayEl]] || 0);
@@ -815,9 +961,11 @@ function renderRadarChart(counts, order, colorMap, minScale){
     return `<circle cx="${x}" cy="${y}" r="3.5" fill="${colors[e]}"/>`;
   }).join('');
 
+  const totalCount = els.reduce((sum,e)=>sum+counts[e], 0);
   const labelsSVG = els.map((e,i)=>{
     const lx = cx + (maxR+26)*Math.cos(angleFor(i)), ly = cy + (maxR+26)*Math.sin(angleFor(i));
-    return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="${colors[e]}" font-size="13" font-weight="700">${e} ${counts[e]}</text>`;
+    const pct = totalCount>0 ? Math.round((counts[e]/totalCount)*100) : 0;
+    return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="${colors[e]}" font-size="13" font-weight="700">${e} ${pct}%</text>`;
   }).join('');
 
   return `<svg viewBox="0 0 260 248" width="100%" style="max-width:280px; display:block; margin:0 auto;">
@@ -827,11 +975,148 @@ function renderRadarChart(counts, order, colorMap, minScale){
   </svg>`;
 }
 
+// 세운(연도별) 점수: 용신/기신과의 오행 관계 기준 100점 만점
+function getSeunScore(yearEl, yongsinEl, gishinEl){
+  if(yearEl === yongsinEl) return 100;
+  if(yearEl === GEN_BY[yongsinEl]) return 80;
+  if(yearEl === gishinEl) return 20;
+  if(yearEl === GEN_BY[gishinEl]) return 40;
+  return 60;
+}
+// 연도별 세운 흐름 영역 차트 (ApexCharts)
+let seunChartInstance = null;
+function renderSeunAreaChart(points, currentIndex){
+  const el = document.getElementById('seunChart');
+  if(typeof ApexCharts === 'undefined'){
+    el.innerHTML = '<div style="font-size:12px; color:var(--ink-dim); text-align:center; padding:16px 0;">차트를 불러오지 못했어요.</div>';
+    return;
+  }
+  if(seunChartInstance){ try{ seunChartInstance.destroy(); }catch(e){} seunChartInstance = null; }
+  el.innerHTML = '';
+
+  const categories = points.map(p=>`${p.year}년`);
+  const scores = points.map(p=>p.score);
+
+  const options = {
+    chart:{
+      type:'area', height:230, toolbar:{show:false}, zoom:{enabled:false},
+      background:'transparent', fontFamily:"'Noto Sans KR', sans-serif",
+      animations:{ enabled:true, easing:'easeinout', speed:500 }
+    },
+    series:[{ name:'운세 종합 점수', data:scores }],
+    colors:['#d4af6a'],
+    fill:{ type:'gradient', gradient:{ shadeIntensity:1, opacityFrom:0.4, opacityTo:0.03, stops:[0,100] } },
+    stroke:{ curve:'smooth', width:2.5 },
+    markers:{
+      size:4, colors:['#1a2130'], strokeColors:'#d4af6a', strokeWidth:2, hover:{size:6},
+      discrete: currentIndex>=0 ? [{ seriesIndex:0, dataPointIndex:currentIndex, fillColor:'#d4af6a', strokeColor:'#f3dfa8', size:6 }] : []
+    },
+    grid:{ borderColor:'#2a3244', strokeDashArray:3, xaxis:{lines:{show:false}} },
+    dataLabels:{ enabled:false },
+    xaxis:{
+      categories,
+      labels:{ style:{ colors:'#a9b0bd', fontSize:'11px' } },
+      axisBorder:{ color:'#2a3244' }, axisTicks:{ color:'#2a3244' }
+    },
+    yaxis:{
+      min:0, max:100, tickAmount:5,
+      title:{ text:'운세 종합 점수', style:{ color:'#a9b0bd', fontSize:'11px', fontWeight:400 } },
+      labels:{ style:{ colors:'#a9b0bd', fontSize:'11px' }, formatter:v=>Math.round(v) }
+    },
+    tooltip:{
+      theme:'dark',
+      y:{ formatter:v=>`${v}점 / 100점` }
+    },
+    annotations: currentIndex>=0 ? {
+      xaxis:[{
+        x: categories[currentIndex],
+        borderColor:'#d4af6a', strokeDashArray:3,
+        label:{ text:'올해', orientation:'horizontal',
+          style:{ color:'#20160a', background:'#d4af6a', fontSize:'11px', fontWeight:700 } }
+      }]
+    } : {}
+  };
+
+  seunChartInstance = new ApexCharts(el, options);
+  seunChartInstance.render();
+}
+
 document.getElementById('resetBtn').addEventListener('click', function(){
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){ /* 무시 */ }
   document.getElementById('result').style.display = 'none';
   document.getElementById('inputCard').style.display = 'block';
   document.getElementById('inputCard').scrollIntoView({behavior:'smooth', block:'start'});
 });
+
+function buildShareURL(data){
+  const params = new URLSearchParams();
+  params.set('y', data.year);
+  params.set('m', data.month);
+  params.set('d', data.day);
+  params.set('h', data.hour);
+  if(data.name) params.set('n', data.name);
+  params.set('g', data.gender || 'm');
+  return `${location.origin}${location.pathname}?${params.toString()}`;
+}
+
+function copyTextToClipboard(btn, text, copiedLabel){
+  const labelEl = btn.querySelector('.btn-label') || btn;
+  const showCopied = ()=>{
+    if(labelEl.dataset.original === undefined) labelEl.dataset.original = labelEl.textContent;
+    labelEl.textContent = copiedLabel;
+    btn.classList.add('copied');
+    clearTimeout(btn._copiedTimer);
+    btn._copiedTimer = setTimeout(()=>{
+      labelEl.textContent = labelEl.dataset.original;
+      btn.classList.remove('copied');
+    }, 2000);
+  };
+
+  const fallbackCopy = ()=>{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try{ document.execCommand('copy'); }catch(e){ /* 무시 */ }
+    document.body.removeChild(ta);
+  };
+
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(showCopied).catch(()=>{ fallbackCopy(); showCopied(); });
+  } else {
+    fallbackCopy();
+    showCopied();
+  }
+}
+
+document.getElementById('shareBtn').addEventListener('click', function(){
+  if(!CURRENT_INPUT) return;
+  const shareUrl = buildShareURL(CURRENT_INPUT);
+  try{ history.replaceState(null, '', shareUrl); }catch(e){ /* 무시 */ }
+  copyTextToClipboard(this, shareUrl, '✅ 링크가 복사됐어요!');
+});
+
+document.getElementById('pageLinkBtn').addEventListener('click', function(){
+  const pageUrl = `${location.origin}${location.pathname}`;
+  copyTextToClipboard(this, pageUrl, '✅ 링크가 복사됐어요!');
+});
+
+function readURLParams(){
+  const params = new URLSearchParams(location.search);
+  const y = parseInt(params.get('y'), 10);
+  const m = parseInt(params.get('m'), 10);
+  const d = parseInt(params.get('d'), 10);
+  if(!isValidYMD(y, m, d)) return null;
+  const hRaw = params.has('h') ? parseInt(params.get('h'), 10) : -1;
+  const h = (isNaN(hRaw) || hRaw < -1 || hRaw > 11) ? -1 : hRaw;
+  const n = params.get('n') || '';
+  const gRaw = params.get('g');
+  const g = ['m','f','n'].includes(gRaw) ? gRaw : 'm';
+  return {year:y, month:m, day:d, hour:h, name:n, gender:g};
+}
 
 function renderSaju(dateVal){
   const [y,m,d] = dateVal.split('-').map(Number);
@@ -843,6 +1128,8 @@ function renderSaju(dateVal){
   const dg = saju.day.gan;
   const dayEl = GAN_EL[dg];
   const today = new Date();
+
+  CURRENT_INPUT = {year:y, month:m, day:d, hour:hourIdx, name, gender:genderVal};
 
   // 제목 & 사주 4기둥 (개요)
   document.getElementById('resultTitle').textContent = name ? `${name}님의 사주 명식` : '사주 명식';
@@ -874,6 +1161,26 @@ function renderSaju(dateVal){
   const profile = DAY_GAN_PROFILE[dg];
   document.getElementById('oneLinerBox').innerHTML = `“${profile.oneLiner}”`;
   document.getElementById('bars').innerHTML = renderRadarChart(counts, ['목','화','토','금','수'], EL_COLOR, 6);
+  {
+    const ohengItemHTML = (el, state)=>{
+      const stateClass = state==='적절' ? 'balanced' : (state==='과다' ? 'excess' : 'deficient');
+      return `<div class="oheng-state-item">
+      <div class="oheng-state-head"><b style="color:${EL_COLOR[el]};">${el}(${EL_HANJA[el]})</b><span class="oheng-state-badge ${stateClass}">${state}</span></div>
+      <div class="oheng-state-desc">${OHAENG_STATE_DESC[el][state]}</div>
+    </div>`;
+    };
+    const notable = [], balanced = [];
+    ['목','화','토','금','수'].forEach(el=>{
+      const state = getElState(counts[el], total);
+      (state==='적절' ? balanced : notable).push(ohengItemHTML(el, state));
+    });
+    let ohengHTML = notable.join('');
+    if(balanced.length){
+      ohengHTML += `<details class="oheng-more"><summary>적절한 오행 더보기 (${balanced.length})</summary>${balanced.join('')}</details>`;
+    }
+    if(!notable.length && !balanced.length){ ohengHTML = ''; }
+    document.getElementById('ohengStateList').innerHTML = ohengHTML;
+  }
   document.getElementById('symbolBox').innerHTML =
     `<div class="symbol-emoji">${profile.symbol.emoji}</div>`
     + `<div><b style="color:var(--gold);">${profile.symbol.name}</b><br>`
@@ -926,6 +1233,7 @@ function renderSaju(dateVal){
     ? '<br><span style="font-size:12px;color:var(--ink-dim);">* 성별을 선택하지 않아 남성 기준으로 대운 방향을 계산했어요. 정확도를 높이려면 성별을 선택해주세요.</span>' : '';
   let daYunHTML = '아직 대운 계산에 필요한 정보가 부족해요.';
   let turningParts = [];
+  let dRel = null; // 현재 대운의 십성 카테고리 (챕터4 별점에서도 재사용)
   try{
     const yun = saju.ec.getYun(genderCode);
     const daYunList = yun.getDaYun();
@@ -939,7 +1247,7 @@ function renderSaju(dateVal){
       const gz = current.getGanZhi();
       const dGan = GAN_H_IDX[gz[0]], dJi = JI_H_IDX[gz[1]];
       const dEl = GAN_EL[dGan];
-      const dRel = getYearRelation(dayEl, dEl);
+      dRel = getYearRelation(dayEl, dEl);
       daYunHTML = `<b>현재 대운</b>: ${GAN[dGan]}${JI[dJi]}(${gz}) · 만 ${current.getStartAge()}~${current.getEndAge()}세 (${yun.isForward()?'순행':'역행'})`
         + `<br>${YEAR_RELATION_DESC[dRel].replace(/^\<b\>/,'대운은 <b>')}`;
     } else {
@@ -976,6 +1284,17 @@ function renderSaju(dateVal){
   document.getElementById('saeUnDesc').innerHTML = `${yfSubText} — ${YEAR_RELATION_DESC[yfRelation]}`;
   document.getElementById('turningDesc').innerHTML = turningParts.join('<br><br>');
 
+  // 연도별 세운 흐름 (영역 차트): 작년부터 향후 5년까지
+  const curCalYear = today.getFullYear();
+  const seunPoints = [];
+  for(let offset=-1; offset<=5; offset++){
+    const yy = curCalYear + offset;
+    const yEl = offset===0 ? yfYearEl : GAN_EL[calcSaju(yy, 8, 15, -1).year.gan];
+    seunPoints.push({ year: yy, score: getSeunScore(yEl, yongsin.el, gishinEl) });
+  }
+  const seunCurrentIndex = seunPoints.findIndex(p=>p.year===curCalYear);
+  document.getElementById('seunChart').innerHTML = renderSeunAreaChart(seunPoints, seunCurrentIndex);
+
   // ══ 챕터 4. 분야별 집중 운세 ══
   const caiCount = ssCatCounts['재성'];
   let wealthMod;
@@ -983,12 +1302,16 @@ function renderSaju(dateVal){
   else if(caiCount===0) wealthMod = '사주에 재성 기운이 약한 편이라, 재물이 저절로 들어오기보다 꾸준한 노력과 관리로 만들어가는 타입이에요. 무리한 투자보다 안정적인 저축 습관이 더 중요해요.';
   else wealthMod = '재물운이 극단적으로 좋거나 나쁘지 않은 무난한 흐름이에요. 꾸준히 관리하면 안정적으로 불려나갈 수 있어요.';
   document.getElementById('wealthDesc').innerHTML = `${WEALTH_BY_EL[dayEl]} ${wealthMod}`;
+  document.getElementById('wealthYearStars').textContent = starRating(THEME_FAVOR.wealth[yfRelation]);
+  document.getElementById('wealthDaYunStars').textContent = dRel ? starRating(THEME_FAVOR.wealth[dRel]) : '—';
 
   const careerStyleTip = YANG_GAN.has(dg)
     ? '조직을 이끄는 리더형 포지션에서 특히 강점이 드러나요.'
     : '실무를 세심하게 챙기는 참모형 포지션에서 특히 강점이 드러나요.';
   const yeokmaTip = hasYeokma ? ' 특히 역마살 기운이 있어 출장·이동·해외 업무처럼 변화가 있는 환경에서 오히려 능력이 빛나요.' : '';
   document.getElementById('careerDesc').innerHTML = `${CAREER_BY_SIPSEONG[topCat]} ${careerStyleTip}${yeokmaTip}`;
+  document.getElementById('careerYearStars').textContent = starRating(THEME_FAVOR.career[yfRelation]);
+  document.getElementById('careerDaYunStars').textContent = dRel ? starRating(THEME_FAVOR.career[dRel]) : '—';
 
   const loveModeTip = strengthInfo.isStrong
     ? ' 연애에서도 주도권을 쥐고 이끄는 편이에요.'
@@ -996,11 +1319,15 @@ function renderSaju(dateVal){
   const dohwaTip = hasDohwa ? ' 특히 사주에 도화살 기운이 있어 이성에게 매력적으로 어필하는 힘이 강해요. 인연이 자연스럽게 따라오는 편이니, 그만큼 관계를 신중하게 선택하는 지혜도 필요해요.' : '';
   document.getElementById('loveDesc').innerHTML =
     `${LOVE_BY_EL[dayEl]}${loveModeTip}${dohwaTip} 대운의 흐름이 안정적인 시기에 관계도 더 순조롭게 이어지는 경우가 많으니, 대운 흐름도 함께 참고해보세요.`;
+  document.getElementById('loveYearStars').textContent = starRating(THEME_FAVOR.love[yfRelation]);
+  document.getElementById('loveDaYunStars').textContent = dRel ? starRating(THEME_FAVOR.love[dRel]) : '—';
 
   const minEl = ['목','화','토','금','수'].reduce((a,b)=>counts[a]<=counts[b]?a:b);
   const healthInfo = HEALTH_BODY[minEl];
   document.getElementById('healthDesc').innerHTML =
     `사주 오행 중 <b>${minEl}(${EL_HANJA[minEl]})</b> 기운이 가장 약한 편이에요. 이 기운과 연결된 <b>${healthInfo.part}</b> 건강에 조금 더 신경 써주시면 좋아요. ${healthInfo.tip}`;
+  document.getElementById('healthYearStars').textContent = starRating(THEME_FAVOR.health[yfRelation]);
+  document.getElementById('healthDaYunStars').textContent = dRel ? starRating(THEME_FAVOR.health[dRel]) : '—';
 
   // ══ 챕터 5. 나를 살리는 삶의 조언 ══
   const lucky = LUCKY_INFO[yongsin.el];
@@ -1030,6 +1357,44 @@ function renderSaju(dateVal){
   document.getElementById('result').style.display = 'block';
   document.getElementById('result').scrollIntoView({behavior:'smooth', block:'start'});
 }
+
+// 아이콘 라이브러리(Lucide) 렌더링
+if(typeof lucide !== 'undefined'){
+  lucide.createIcons({ attrs: { width: 16, height: 16, 'stroke-width': 2 } });
+}
+
+// 공유 링크(URL 쿼리) 또는 마지막 저장값으로 새로고침 후에도 결과가 그대로 남도록 복원
+(function restoreOnLoad(){
+  function applyAndRender(data){
+    document.getElementById('yearInput').value = data.year;
+    document.getElementById('monthInput').value = data.month;
+    document.getElementById('dayInput').value = data.day;
+    document.getElementById('hourInput').value = (data.hour !== undefined && data.hour !== null) ? data.hour : '-1';
+    document.getElementById('nameInput').value = data.name || '';
+    const genderRadio = document.querySelector(`input[name="gender"][value="${data.gender || 'm'}"]`);
+    if(genderRadio) genderRadio.checked = true;
+
+    const dateVal = `${data.year}-${String(data.month).padStart(2,'0')}-${String(data.day).padStart(2,'0')}`;
+    document.getElementById('inputCard').style.display = 'none';
+    renderSaju(dateVal);
+  }
+
+  // 1순위: 공유 링크로 접속한 경우 (localStorage는 건드리지 않음 — 내 저장 결과를 덮어쓰지 않기 위해)
+  const fromUrl = readURLParams();
+  if(fromUrl){
+    applyAndRender(fromUrl);
+    return;
+  }
+
+  // 2순위: 마지막으로 계산했던 내 결과
+  let saved;
+  try{ saved = localStorage.getItem(STORAGE_KEY); }catch(e){ return; }
+  if(!saved) return;
+  let data;
+  try{ data = JSON.parse(saved); }catch(e){ return; }
+  if(!data || !data.year || !data.month || !data.day) return;
+  applyAndRender(data);
+})();
 </script>
 </body>
 </html>
